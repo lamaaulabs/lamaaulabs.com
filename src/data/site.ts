@@ -48,6 +48,7 @@ export type Work = {
   client: string;
   kind: string;
   year: string;
+  why: string;
 };
 
 export const work: Work[] = [
@@ -56,24 +57,28 @@ export const work: Work[] = [
     client: 'Instansi pemerintah',
     kind: 'Platform · GIS · Infrastruktur',
     year: '2026',
+    why: 'Datanya sudah ada, cuma tersebar di banyak instansi dan nggak bisa dipakai bareng. Kami satukan data tabular dan spasial ke satu platform, dengan akses per peran dan peta yang bisa dipakai lintas dinas.',
   },
   {
     title: 'Smartschool',
     client: 'Sekolah dan dinas',
     kind: 'Web · Manajemen sekolah',
     year: '2025',
+    why: 'Operasional sekolah jalan di banyak spreadsheet dan grup WhatsApp, jadi satu data lahir ulang di lima tempat. Kami bangun satu sistem untuk data akademik dan administrasi, supaya dinas dan sekolah melihat angka yang sama.',
   },
   {
     title: 'E-Accounting',
     client: 'Perusahaan swasta',
     kind: 'Web · Akuntansi',
     year: '2025',
+    why: 'Pembukuan masih di Excel: rawan salah, dan susah ditelusuri waktu audit. Kami bangun pembukuan dengan jurnal yang bisa dilacak balik ke transaksi asalnya, plus laporan yang siap dipakai akuntan.',
   },
   {
     title: 'Smart Attendance',
     client: 'Sekolah dan dinas',
     kind: 'Mobile · Absensi sekolah',
     year: '2025',
+    why: 'Absensi manual bikin rekap telat masuk dan gampang dipersoalkan. Kami buat absensi mobile yang langsung nyambung ke Smartschool, jadi data kehadiran masuk di hari yang sama.',
   },
 ];
 
