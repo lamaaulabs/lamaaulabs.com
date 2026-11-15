@@ -21,7 +21,7 @@ npx astro preview    # cek hasil build di :4322
 
 | Route | Palet | Font |
 |---|---|---|
-| `/` | `#0a0a0a` / `#ff4d00` | Inter + JetBrains Mono |
+| `/` | `#f4f1ea` / `#c4421a` | Instrument Serif + Inter + JetBrains Mono |
 
 ## Struktur
 
@@ -41,9 +41,9 @@ python3 - <<'PY'
 svg = open('public/og.svg', encoding='utf-8').read()
 open('/tmp/og.html', 'w', encoding='utf-8').write(
   '<!doctype html><meta charset="utf-8">'
-  '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@600'
+  '<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1'
   '&family=JetBrains+Mono:wght@400&display=block" rel="stylesheet">'
-  '<style>html,body{margin:0;background:#0a0a0a}</style>' + svg)
+  '<style>html,body{margin:0;background:#f4f1ea}</style>' + svg)
 PY
 "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
   --headless=new --disable-gpu --hide-scrollbars --window-size=1200,630 \
@@ -64,5 +64,5 @@ Semua copy, produk, dan daftar work diambil dari `src/data/site.ts`.
 - Font dari Google Fonts (2 family). Kalau mau nol request eksternal,
   self-host di `public/fonts/` + `@font-face`.
 - Nol JavaScript. Semua hover pakai CSS transition.
-- Overflow horizontal: 0px di 1440 dan 500, sudah diverifikasi.
+- Overflow horizontal: 0px di 1440, 1100, 900, 700, dan 500 — sudah diverifikasi.
 - Screenshot di `shots/` masih dari varian lama (`/a`, `/b`, `/c`) — sudah basi.
