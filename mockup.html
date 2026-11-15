@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lamaau Labs — Software Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f4f1ea;
+    --ink: #1a1815;
+    --muted: #6b6560;
+    --line: #d8d2c7;
+    --accent: #c4421a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 100px 100px;
+    background-position: -1px -1px;
+    background-attachment: fixed;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    opacity: 0.92;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  .wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 32px;
+    position: relative;
+  }
+
+  /* ---- nav ---- */
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .brand {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.5rem;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    color: var(--ink);
+  }
+
+  .brand i { color: var(--accent); font-style: italic; }
+
+  nav ul {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+    font-size: 0.88rem;
+    font-weight: 500;
+  }
+
+  nav a { color: var(--muted); text-decoration: none; transition: color 0.15s; }
+  nav a:hover { color: var(--ink); }
+
+  nav .nav-right { display: flex; gap: 32px; align-items: baseline; }
+
+  .dot {
+    display: inline-block;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #4a9a4a;
+    margin-right: 6px;
+    vertical-align: middle;
+    position: relative; top: -1px;
+    box-shadow: 0 0 0 3px rgba(74,154,74,0.15);
+  }
+
+  /* ---- hero ---- */
+  .hero {
+    padding: 100px 0 90px;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 80px;
+    align-items: start;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .hero h1 {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: clamp(3.2rem, 6.5vw, 5.4rem);
+    line-height: 0.98;
+    letter-spacing: -0.025em;
+    margin-bottom: 32px;
+  }
+
+  .hero h1 em { font-style: italic; color: var(--accent); }
+
+  .hero p {
+    font-size: 1.05rem;
+    color: var(--muted);
+    max-width: 500px;
+    margin-bottom: 40px;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    font-size: 0.9rem;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 22px;
+    background: var(--ink);
+    color: var(--bg);
+    text-decoration: none;
+    border-radius: 2px;
+    font-weight: 500;
+    font-size: 0.88rem;
+    transition: background 0.15s;
+  }
+  .btn:hover { background: #000; }
+
+  .btn-arrow { display: inline-block; transition: transform 0.15s; }
+  .btn:hover .btn-arrow { transform: translateX(3px); }
+
+  .link-underline {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 1px;
+    font-weight: 500;
+  }
+
+  /* hero side — engagement card */
+  .engage-panel {
+    border: 1px solid var(--line);
+    background: rgba(255,255,255,0.4);
+    backdrop-filter: blur(6px);
+    padding: 24px 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    line-height: 1.8;
+  }
+
+  .engage-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    font-weight: 500;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .engage-title .dot { box-shadow: 0 0 0 2px rgba(74,154,74,0.15); width: 6px; height: 6px; }
+
+  .engage-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 3px 0;
+    color: var(--muted);
+  }
+  .engage-row span:last-child { color: var(--ink); font-weight: 500; }
+
+  .engage-divider { border-top: 1px dashed var(--line); margin: 14px 0; }
+
+  .engage-note {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    color: var(--muted);
+    line-height: 1.5;
+    font-style: italic;
+  }
+
+  /* ---- stats ---- */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .stat {
+    padding: 40px 0 40px 32px;
+    border-right: 1px solid var(--line);
+  }
+  .stat:first-child { padding-left: 0; }
+  .stat:last-child { border-right: none; }
+
+  .stat-num {
+    font-family: 'Instrument Serif', serif;
+    font-size: 2.6rem;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+
+  .stat-num em { color: var(--accent); font-style: italic; }
+
+  .stat-label { font-size: 0.8rem; color: var(--muted); }
+
+  /* ---- sections ---- */
+  .section {
+    padding: 90px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .section-head {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    margin-bottom: 64px;
+    align-items: end;
+  }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+
+  .section h2 {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: clamp(2.2rem, 3.5vw, 3rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+
+  .section h2 em { font-style: italic; }
+
+  .section-head p {
+    color: var(--muted);
+    font-size: 0.98rem;
+    max-width: 420px;
+  }
+
+  /* ---- work grid ---- */
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .project {
+    padding: 36px 0 40px;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .project:nth-child(odd) {
+    padding-right: 48px;
+    border-right: 1px solid var(--line);
+  }
+
+  .project:nth-child(even) {
+    padding-left: 48px;
+  }
+
+  .project:last-child,
+  .project:nth-last-child(2):nth-child(odd) {
+    border-bottom: none;
+  }
+
+  .project-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    margin-bottom: 18px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .project h3 {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: 1.9rem;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    margin-bottom: 14px;
+    transition: color 0.15s;
+  }
+
+  .project:hover h3 { color: var(--accent); }
+
+  .project p {
+    font-size: 0.92rem;
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: 420px;
+  }
+
+  .project-tags {
+    margin-top: 20px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    padding: 3px 10px;
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    color: var(--muted);
+  }
+
+  /* ---- process ---- */
+  .process-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .process-item {
+    padding: 36px 32px 40px 0;
+    border-right: 1px solid var(--line);
+  }
+  .process-item:last-child { border-right: none; padding-right: 0; }
+
+  .process-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-bottom: 24px;
+    display: block;
+  }
+
+  .process-item h3 {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: 1.6rem;
+    line-height: 1.15;
+    margin-bottom: 14px;
+    letter-spacing: -0.01em;
+  }
+
+  .process-item p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ---- quote ---- */
+  .quote {
+    padding: 100px 0;
+    border-bottom: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 60px;
+  }
+
+  .quote-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    padding-top: 8px;
+  }
+
+  blockquote {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    max-width: 720px;
+  }
+
+  blockquote em { color: var(--accent); font-style: italic; }
+
+  .quote-attr {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin-top: 32px;
+    line-height: 1.4;
+  }
+  .quote-attr strong { color: var(--ink); font-weight: 500; }
+
+  /* ---- cta ---- */
+  .cta {
+    padding: 100px 0 120px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 60px;
+    align-items: end;
+  }
+
+  .cta h2 {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: clamp(2.8rem, 5vw, 4rem);
+    line-height: 0.98;
+    letter-spacing: -0.025em;
+  }
+  .cta h2 em { font-style: italic; color: var(--accent); }
+
+  .cta-side {
+    text-align: right;
+    font-size: 0.85rem;
+    color: var(--muted);
+    max-width: 280px;
+  }
+
+  .cta-side .btn { margin-top: 20px; }
+
+  /* ---- footer ---- */
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 32px 0 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.78rem;
+    color: var(--muted);
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  footer .brand { font-size: 1.1rem; }
+
+  footer ul { display: flex; gap: 28px; list-style: none; }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--ink); }
+
+  /* ---- responsive ---- */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; gap: 48px; padding: 64px 0; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .stat:nth-child(2) { border-right: none; }
+    .stat:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+    .stat:nth-child(3) { padding-left: 0; }
+    .section-head { grid-template-columns: 1fr; gap: 24px; }
+    .work-grid { grid-template-columns: 1fr; }
+    .project:nth-child(odd) { padding-right: 0; border-right: none; }
+    .project:nth-child(even) { padding-left: 0; }
+    .project:nth-last-child(2):nth-child(odd) { border-bottom: 1px solid var(--line); }
+    .project:last-child { border-bottom: none; }
+    .process-list { grid-template-columns: 1fr; }
+    .process-item { border-right: none; border-bottom: 1px solid var(--line); padding: 32px 0; }
+    .process-item:last-child { border-bottom: none; }
+    .quote { grid-template-columns: 1fr; gap: 24px; }
+    .cta { grid-template-columns: 1fr; gap: 32px; }
+    .cta-side { text-align: left; }
+    nav ul { display: none; }
+  }
+
+  @media (max-width: 600px) {
+    .wrap { padding: 0 20px; }
+    .stats { grid-template-columns: 1fr; }
+    .stat { border-right: none; border-bottom: 1px solid var(--line); padding: 28px 0; }
+    .stat:last-child { border-bottom: none; }
+    .hero-actions { flex-direction: column; align-items: flex-start; gap: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <nav>
+    <a href="#" class="brand">lamaau<i>labs</i></a>
+    <div class="nav-right">
+      <ul>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#">Notes</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <a href="#contact" style="color:var(--ink); font-weight:500;"><span class="dot"></span>Open for Q1</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div>
+      <h1>Kami bikin software<br>yang <em>selesai</em>.<br>Bukan demo.</h1>
+      <p>
+        Lamaau Labs itu software studio kecil yang ngerjain produk digital end-to-end —
+        dari arsitektur sampai deploy. Klien kami biasanya datang karena vendor sebelumnya
+        ngasih prototipe cantik tapi nggak pernah sampai production.
+      </p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn">Mulai proyek <span class="btn-arrow">→</span></a>
+        <a href="#work" class="link-underline">Lihat hasil kerja</a>
+      </div>
+    </div>
+
+    <aside class="engage-panel">
+      <div class="engage-title">
+        <span>status / studio</span>
+        <span><span class="dot"></span>available</span>
+      </div>
+      <div class="engage-row"><span>kapasitas</span><span>2 slot Q1 2026</span></div>
+      <div class="engage-row"><span>tim</span><span>4 engineer</span></div>
+      <div class="engage-row"><span>lokasi</span><span>Jakarta / remote</span></div>
+      <div class="engage-divider"></div>
+      <div class="engage-row"><span>engagement</span><span>fixed-scope</span></div>
+      <div class="engage-row"><span>durasi tipikal</span><span>6–12 minggu</span></div>
+      <div class="engage-row"><span>stack</span><span>TS / Go / Postgres</span></div>
+      <div class="engage-divider"></div>
+      <div class="engage-note">
+        Kami nggak ambil proyek yang nggak jelas scope-nya. Kalau lo butuh "sesuatu di mobile",
+        kita mulai dari discovery 1 minggu dulu.
+      </div>
+    </aside>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-num">23</div>
+      <div class="stat-label">produk shipped sejak 2021</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">0</div>
+      <div class="stat-label">proyek yang nggak sampai deploy</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">6<em>–</em>12</div>
+      <div class="stat-label">minggu rata-rata dari kickoff ke launch</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">80<em>%</em></div>
+      <div class="stat-label">klien balik lagi untuk proyek kedua</div>
+    </div>
+  </div>
+
+  <!-- WORK -->
+  <section class="section" id="work">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">/ selected work</div>
+        <h2>Yang udah<br>jalan di <em>production</em>.</h2>
+      </div>
+      <p>
+        Nggak semua bisa kami pamerin karena NDA, tapi ini beberapa yang boleh
+        disebut namanya. Semua ini live, punya user beneran, dan masih di-maintain.
+      </p>
+    </div>
+
+    <div class="work-grid">
+      <a href="#" class="project">
+        <div class="project-meta"><span>2025 · B2B SaaS</span><span>→</span></div>
+        <h3>Sistem inventory multi-cabang</h3>
+        <p>
+          Klien retail dengan 40+ gerai. Masalahnya: stok di tiap cabang nggak pernah
+          akurat karena update manual via Excel. Kami bikin ulang backend-nya, integrasi
+          ke POS yang udah ada, dan dashboard real-time buat ops manager.
+        </p>
+        <div class="project-tags">
+          <span class="tag">Go</span>
+          <span class="tag">Postgres</span>
+          <span class="tag">React</span>
+          <span class="tag">GCP</span>
+        </div>
+      </a>
+
+      <a href="#" class="project">
+        <div class="project-meta"><span>2024 · Fintech</span><span>→</span></div>
+        <h3>Onboarding KYC yang nggak bikin frustrasi</h3>
+        <p>
+          Vendor sebelumnya punya flow onboarding 11 langkah dengan drop-off 68%.
+          Kami potong jadi 4 langkah, pindahin verifikasi ke background, dan hasilnya
+          completion rate naik ke 91% dalam 6 minggu setelah launch.
+        </p>
+        <div class="project-tags">
+          <span class="tag">TypeScript</span>
+          <span class="tag">Node</span>
+          <span class="tag">Redis</span>
+          <span class="tag">AWS</span>
+        </div>
+      </a>
+
+      <a href="#" class="project">
+        <div class="project-meta"><span>2024 · Internal tool</span><span>→</span></div>
+        <h3>Admin panel buat tim operasi 200 orang</h3>
+        <p>
+          Tim ops klien kami kerja pakai 6 spreadsheet berbeda dan 3 grup WhatsApp.
+          Kami bikin satu internal tool yang nyatuin workflow, dengan role-based access,
+          audit log, dan export ke format yang mereka udah pakai.
+        </p>
+        <div class="project-tags">
+          <span class="tag">Next.js</span>
+          <span class="tag">tRPC</span>
+          <span class="tag">Prisma</span>
+        </div>
+      </a>
+
+      <a href="#" class="project">
+        <div class="project-meta"><span>2023 · Marketplace</span><span>→</span></div>
+        <h3>Rebuild mesin pencari dengan budget terbatas</h3>
+        <p>
+          Search lama pakai LIKE query dan makan 4 detik per request. Kami implement
+          full-text search pakai Postgres tsvector + trigram, tanpa nambah infrastruktur
+          baru. Latency turun ke 80ms, biaya cloud nggak naik.
+        </p>
+        <div class="project-tags">
+          <span class="tag">Postgres</span>
+          <span class="tag">Go</span>
+          <span class="tag">Docker</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="section" id="process">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">/ cara kerja</div>
+        <h2>Nggak ada<br>kejutan di <em>minggu ke-8</em>.</h2>
+      </div>
+      <p>
+        Sebagian besar proyek software gagal bukan karena teknis, tapi karena ekspektasi
+        dan timeline nggak pernah ketemu. Kami kerja dengan scope yang dikunci di awal
+        dan progress yang keliatan tiap minggu.
+      </p>
+    </div>
+
+    <div class="process-list">
+      <div class="process-item">
+        <span class="process-num">01 — discovery</span>
+        <h3>Seminggu buat ngerti masalahnya</h3>
+        <p>
+          Sebelum nulis kode, kami duduk bareng stakeholder dan user. Output-nya:
+          dokumen scope, arsitektur awal, dan estimasi yang bisa kami pertanggungjawabkan.
+        </p>
+      </div>
+      <div class="process-item">
+        <span class="process-num">02 — build</span>
+        <h3>Demo tiap Jumat, tanpa drama</h3>
+        <p>
+          Lo bisa lihat progress di staging setiap minggu. Nggak ada "trust the process".
+          Kalau ada yang melenceng, kita tahu di minggu pertama, bukan di minggu terakhir.
+        </p>
+      </div>
+      <div class="process-item">
+        <span class="process-num">03 — handover</span>
+        <h3>Kode dan dokumentasi, bukan sandera</h3>
+        <p>
+          Semua kode di repo lo. Dokumentasi arsitektur, runbook deploy, dan sesi
+          handover ke tim internal lo. Kami nggak mau lo balik cuma karena nggak ada
+          yang ngerti cara deploy.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE -->
+  <section class="quote">
+    <div class="quote-label">/ klien</div>
+    <div>
+      <blockquote>
+        Kami udah coba dua agency sebelumnya. Yang pertama kasih prototipe Figma doang.
+        Yang kedua kasih kode yang nggak bisa di-deploy. Lamaau ngasih <em>sistem yang jalan</em>
+        dan tim kami bisa langsung oper.
+      </blockquote>
+      <div class="quote-attr">
+        <strong>— Head of Product</strong><br>
+        Perusahaan retail, 40+ gerai<br>
+        <span style="font-family:'JetBrains Mono',monospace; font-size:0.7rem; opacity:0.8;">nama disembunyikan sesuai NDA</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta" id="contact">
+    <h2>Punya masalah<br>yang butuh <em>software</em>?</h2>
+    <div class="cta-side">
+      <p>
+        Ceritain dalam 2–3 paragraf. Kalau cocok, kami balas dalam 48 jam dengan
+        jadwal call 30 menit. Kalau nggak cocok, kami bilang nggak cocok.
+      </p>
+      <a href="#" class="btn">Kirim brief <span class="btn-arrow">→</span></a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="#" class="brand">lamaau<i>labs</i></a>
+    <ul>
+      <li><a href="#">GitHub</a></li>
+      <li><a href="#">LinkedIn</a></li>
+      <li><a href="#">hello@lamaaulabs.com</a></li>
+    </ul>
+    <div style="font-family:'JetBrains Mono',monospace; font-size:0.7rem;">© 2025 · a redesign concept</div>
+  </footer>
+
+</div>
+
+</body>
+</html>
