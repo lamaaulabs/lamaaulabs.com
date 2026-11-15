@@ -1,0 +1,335 @@
+---
+import { site, products, work, services } from '../data/site';
+
+const title = `${site.name} — lab produk & software independen`;
+const ogImage = new URL('og.png', Astro.site);
+---
+
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={site.description} />
+    <link rel="canonical" href={Astro.site} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={site.description} />
+    <meta property="og:url" content={Astro.site} />
+    <meta property="og:locale" content="id_ID" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={title} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="frame">
+      <header>
+        <a class="mark" href="/"><span class="dot"></span>{site.name}</a>
+        <nav>
+          <a href="#products">produk</a>
+          <a href="#work">proyek</a>
+          <a href="#studio">layanan</a>
+        </nav>
+      </header>
+
+      <section class="hero">
+        <p class="mono tag">lab produk independen — {site.location}</p>
+        <h1>
+          Kita bangun produk<br />
+          sendiri. Lalu bantu<br />
+          bangun <span class="sig">punyamu</span>.
+        </h1>
+        <p class="lede">{site.about}</p>
+        <div class="hero-actions">
+          <a class="btn solid mono" href="#products">lihat produk</a>
+          <a class="btn ghost mono" href="#work">proyek klien</a>
+        </div>
+      </section>
+
+      <section id="products">
+        <div class="sec-head">
+          <h2 class="mono">produk</h2>
+          <span class="mono muted">dibangun &amp; dijalankan sendiri</span>
+        </div>
+        <div class="grid">
+          {products.map((p) => (
+            <a class="card" href={p.url}>
+              <div class="card-top">
+                <span class="mono host">{p.url.replace(/^https?:\/\//, '')}</span>
+                <span class:list={['mono pill', p.status]}>{p.status}</span>
+              </div>
+              <h3>{p.name}</h3>
+              <p>{p.line}</p>
+              <span class="mono arrow">open →</span>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <section id="work">
+        <div class="sec-head">
+          <h2 class="mono">proyek</h2>
+          <span class="mono muted">proyek terpilih</span>
+        </div>
+        <div class="list">
+          {work.map((w, i) => (
+            <div class="item">
+              <span class="mono num">{String(i + 1).padStart(2, '0')}</span>
+              <span class="t">{w.title}</span>
+              <span class="mono muted">{w.client}</span>
+              <span class="mono muted">{w.kind}</span>
+              <span class="mono num">{w.year}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section id="studio">
+        <div class="sec-head">
+          <h2 class="mono">layanan</h2>
+          <span class="mono muted">yang kami kerjakan</span>
+        </div>
+        <div class="caps">
+          {services.map((s) => (
+            <div class="cap">
+              <span class="mono num">{s.k}</span>
+              <h3>{s.t}</h3>
+              <p>{s.d}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section id="contact" class="contact">
+        <h2>
+          Punya brief? Kirim <span class="sig">satu paragraf</span>. Kita balas dengan
+          pertanyaan, bukan proposal.
+        </h2>
+        <a class="mono cta" href={`mailto:${site.email}`}>{site.email}</a>
+      </section>
+
+      <footer>
+        <span class="mono muted">© {site.year} {site.name}</span>
+      </footer>
+    </div>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --bg: #0a0a0a;
+    --panel: #101010;
+    --line: #232323;
+    --ink: #ededed;
+    --muted: #757575;
+    --signal: #ff4d00;
+    --pad: clamp(18px, 4vw, 56px);
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-font-smoothing: antialiased; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+  }
+  .mono {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+  .muted { color: var(--muted); }
+  .sig { color: var(--signal); }
+
+  .frame { padding: 0 var(--pad); max-width: 1320px; margin: 0 auto; }
+
+  header {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--line);
+    position: sticky;
+    top: 0;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(12px);
+    z-index: 10;
+  }
+  .mark {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+  }
+  .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--signal);
+    box-shadow: 0 0 12px var(--signal);
+  }
+  header nav { display: flex; gap: 24px; margin-left: auto; }
+  header nav a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.16s ease;
+  }
+  header nav a:hover { color: var(--ink); }
+
+  .btn {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 9px 16px;
+    border: 1px solid var(--line);
+    color: var(--ink);
+    transition: border-color 0.16s ease, background 0.16s ease, color 0.16s ease;
+  }
+  .btn:hover { border-color: var(--signal); color: var(--signal); }
+  .btn.solid { background: var(--signal); border-color: var(--signal); color: #0a0a0a; font-weight: 500; }
+  .btn.solid:hover { background: transparent; color: var(--signal); }
+
+  .hero { padding: clamp(64px, 13vh, 150px) 0 clamp(48px, 8vh, 90px); }
+  .tag { color: var(--signal); margin: 0 0 30px; }
+  .hero h1 {
+    margin: 0;
+    font-size: clamp(40px, 7.4vw, 104px);
+    line-height: 0.98;
+    letter-spacing: -0.045em;
+    font-weight: 600;
+  }
+  .lede {
+    margin: clamp(30px, 5vh, 52px) 0 0;
+    max-width: 52ch;
+    color: #a3a3a3;
+    font-size: 17px;
+    font-weight: 300;
+  }
+  .hero-actions { display: flex; gap: 12px; margin-top: 34px; flex-wrap: wrap; }
+
+  .sec-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 18px 0;
+  }
+  .sec-head h2 { margin: 0; color: var(--signal); }
+  section { padding-bottom: 60px; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(276px, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .card {
+    background: var(--panel);
+    padding: 22px 20px 26px;
+    text-decoration: none;
+    color: var(--ink);
+    display: flex;
+    flex-direction: column;
+    min-height: 210px;
+    transition: background 0.18s ease;
+  }
+  .card:hover { background: #151515; }
+  .card-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+  .host { color: var(--muted); font-size: 10px; letter-spacing: 0.04em; text-transform: none; }
+  .pill {
+    font-size: 9.5px;
+    padding: 3px 7px;
+    border: 1px solid var(--line);
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .pill.shipped { color: var(--signal); border-color: color-mix(in srgb, var(--signal) 45%, var(--line)); }
+  .pill.beta { color: #d8d8d8; }
+  .card h3 {
+    margin: 26px 0 8px;
+    font-size: 25px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+  .card p { margin: 0 0 20px; color: #9a9a9a; font-size: 14.5px; line-height: 1.55; font-weight: 300; }
+  .arrow { margin-top: auto; color: var(--signal); font-size: 10px; }
+
+  .list { border-top: 1px solid var(--line); }
+  .item {
+    display: grid;
+    grid-template-columns: 40px minmax(180px, 1.4fr) minmax(110px, 0.7fr) minmax(160px, 1fr) 56px;
+    gap: 18px;
+    align-items: baseline;
+    padding: 17px 2px;
+    border-bottom: 1px solid var(--line);
+  }
+  .item .t { font-size: 18px; font-weight: 400; letter-spacing: -0.01em; }
+  .num { color: var(--muted); }
+
+  .caps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+  .cap { background: var(--panel); padding: 22px 20px 26px; }
+  .cap h3 { margin: 14px 0 8px; font-size: 19px; font-weight: 500; letter-spacing: -0.01em; }
+  .cap p { margin: 0; color: #9a9a9a; font-size: 14.5px; font-weight: 300; }
+
+  .contact { border-top: 1px solid var(--line); padding: clamp(64px, 11vh, 120px) 0; }
+  .contact h2 {
+    margin: 0 0 28px;
+    font-size: clamp(34px, 5.8vw, 76px);
+    line-height: 1.0;
+    letter-spacing: -0.04em;
+    font-weight: 600;
+  }
+  .cta {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--signal);
+    padding-bottom: 4px;
+  }
+  .cta:hover { color: var(--signal); }
+
+  footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 18px 0 40px;
+    border-top: 1px solid var(--line);
+  }
+
+  @media (max-width: 860px) {
+    header { flex-wrap: wrap; gap: 12px 20px; }
+    .item { grid-template-columns: 30px 1fr auto; row-gap: 6px; }
+    .item .muted { grid-column: 2 / -1; }
+    .item .num:last-child { grid-column: 3; grid-row: 1; }
+  }
+</style>
