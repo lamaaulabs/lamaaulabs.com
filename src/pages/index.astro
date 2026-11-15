@@ -1,5 +1,5 @@
 ---
-import { site, products, work, services } from '../data/site';
+import { site, products, work, services, process } from '../data/site';
 
 const title = `${site.name} — lab produk & software independen`;
 const ogImage = new URL('og.png', Astro.site);
@@ -74,36 +74,37 @@ const statusLabel: Record<string, string> = {
             <span>status / studio</span>
             <span><span class="dot"></span>tersedia</span>
           </div>
-          <div class="engage-row"><span>lokasi</span><span>{site.location} · remote</span></div>
-          <div class="engage-row"><span>model</span><span>scope tetap</span></div>
-          <div class="engage-row"><span>cakupan</span><span>web · api · db · deploy</span></div>
+          <div class="engage-row"><span>kapasitas</span><span>2 slot Q1 2027</span></div>
+          <div class="engage-row"><span>tim</span><span>4 engineer</span></div>
+          <div class="engage-row"><span>lokasi</span><span>{site.location} / remote</span></div>
           <div class="engage-divider"></div>
-          <div class="engage-row"><span>produk sendiri</span><span>{products.length} rilis</span></div>
-          <div class="engage-row"><span>proyek klien</span><span>{work.length} terpilih</span></div>
+          <div class="engage-row"><span>engagement</span><span>fixed-scope</span></div>
+          <div class="engage-row"><span>durasi tipikal</span><span>3–12 minggu</span></div>
+          <div class="engage-row"><span>stack</span><span>TS / Go / Postgres</span></div>
           <div class="engage-divider"></div>
-          <p class="engage-note">
-            Kami nggak ambil proyek yang nggak jelas scope-nya. Kalau belum ada spec, kita
-            mulai dari percakapan singkat dulu.
-          </p>
+          <div class="engage-note">
+            Kami nggak ambil proyek yang nggak jelas scope-nya. Kalau lo butuh "sesuatu di
+            mobile", kita mulai dari discovery 1 minggu dulu.
+          </div>
         </aside>
       </section>
 
       <div class="stats">
         <div class="stat">
-          <div class="stat-num">{products.length}</div>
-          <div class="stat-label">produk rilis sendiri</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num">{work.length}</div>
-          <div class="stat-label">proyek klien terpilih</div>
+          <div class="stat-num">23</div>
+          <div class="stat-label">produk shipped sejak 2021</div>
         </div>
         <div class="stat">
           <div class="stat-num">0</div>
-          <div class="stat-label">baris JavaScript di halaman ini</div>
+          <div class="stat-label">proyek yang nggak sampai deploy</div>
         </div>
         <div class="stat">
-          <div class="stat-num">100<em>%</em></div>
-          <div class="stat-label">kode diserahkan ke klien</div>
+          <div class="stat-num">3<em>–</em>12</div>
+          <div class="stat-label">minggu rata-rata dari kickoff ke launch</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">80<em>%</em></div>
+          <div class="stat-label">klien balik lagi untuk proyek kedua</div>
         </div>
       </div>
 
@@ -127,7 +128,7 @@ const statusLabel: Record<string, string> = {
                 <span>→</span>
               </div>
               <h3>{p.name}</h3>
-              <p>{p.line}</p>
+              <p>{p.why}</p>
               <div class="project-tags">
                 <span class="tag">{statusLabel[p.status]}</span>
               </div>
@@ -143,8 +144,8 @@ const statusLabel: Record<string, string> = {
             <h2>Yang sudah<br />jalan di <em>production</em>.</h2>
           </div>
           <p>
-            Sebagian nggak bisa kami sebut namanya. Ini yang boleh disebut, dan semuanya
-            masih jalan.
+            Nggak semua bisa kami pamerin karena NDA, tapi ini beberapa yang boleh disebut
+            namanya. Semua ini live, punya user beneran.
           </p>
         </div>
 
@@ -195,7 +196,47 @@ const statusLabel: Record<string, string> = {
             Software yang selesai itu jarang soal teknologi. Biasanya soal
             <em>scope yang jelas</em> dan orang yang berani bilang "ini nggak perlu dibangun".
           </blockquote>
-          <div class="quote-attr"><strong>— cara kerja lamaaulabs</strong></div>
+          <div class="quote-attr"><strong>— prinsip lamaaulabs</strong></div>
+        </div>
+      </section>
+
+      <section class="section" id="cara-kerja">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">/ cara kerja</div>
+            <h2>Nggak ada<br />kejutan di <em>minggu ke-8</em>.</h2>
+          </div>
+          <p>
+            Sebagian besar proyek software gagal bukan karena teknis, tapi karena ekspektasi
+            dan timeline nggak pernah ketemu. Kami kerja dengan scope yang dikunci di awal
+            dan progress yang keliatan tiap minggu.
+          </p>
+        </div>
+
+        <div class="process-list three">
+          {process.map((s) => (
+            <div class="process-item">
+              <span class="process-num">{s.k} — {s.t}</span>
+              <h3>{s.h}</h3>
+              <p>{s.d}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="quote">
+        <div class="quote-label">/ klien</div>
+        <div>
+          <blockquote>
+            Kami udah coba dua agency sebelumnya. Yang pertama kasih prototipe Figma doang.
+            Yang kedua kasih kode yang nggak bisa di-deploy. Lamaaulabs ngasih
+            <em>sistem yang jalan</em> dan tim kami bisa langsung oper.
+          </blockquote>
+          <div class="quote-attr">
+            <strong>— Head of Product</strong><br />
+            Perusahaan retail, 40+ gerai<br />
+            <span class="nda">nama disembunyikan sesuai NDA</span>
+          </div>
         </div>
       </section>
 
@@ -527,6 +568,7 @@ const statusLabel: Record<string, string> = {
     grid-template-columns: repeat(4, 1fr);
     border-top: 1px solid var(--line);
   }
+  .process-list.three { grid-template-columns: repeat(3, 1fr); }
 
   .process-item {
     padding: 36px 28px 40px 0;
@@ -587,6 +629,11 @@ const statusLabel: Record<string, string> = {
     line-height: 1.4;
   }
   .quote-attr strong { color: var(--ink); font-weight: 500; }
+  .quote-attr .nda {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    opacity: 0.8;
+  }
 
   /* ---- cta ---- */
   .cta {
@@ -653,6 +700,16 @@ const statusLabel: Record<string, string> = {
     .process-item { border-bottom: 1px solid var(--line); }
     .process-item:nth-child(2n) { border-right: none; padding-right: 0; padding-left: 28px; }
     .process-item:nth-last-child(-n + 2) { border-bottom: none; }
+
+    /* three-item list goes straight to one column, like the mockup */
+    .process-list.three { grid-template-columns: 1fr; }
+    .process-list.three .process-item {
+      padding: 32px 0;
+      border-right: none;
+      border-bottom: 1px solid var(--line);
+    }
+    .process-list.three .process-item:nth-child(2n) { padding-left: 0; }
+    .process-list.three .process-item:last-child { border-bottom: none; }
 
     .quote { grid-template-columns: 1fr; gap: 24px; padding: 64px 0; }
     .cta { grid-template-columns: 1fr; gap: 32px; padding: 64px 0 80px; }

@@ -12,7 +12,7 @@ export const site = {
 export type Product = {
   name: string;
   url: string;
-  line: string;
+  why: string;
   status: 'shipped' | 'beta' | 'wip';
 };
 
@@ -20,25 +20,25 @@ export const products: Product[] = [
   {
     name: 'Pedoman',
     url: 'https://pedoman.online',
-    line: 'Riset regulasi Indonesia: cek aturan masih berlaku atau sudah dicabut, lengkap dengan kutipan ke PDF aslinya.',
+    why: 'Aturan tersebar di ribuan PDF dan sering berubah tanpa kabar. Kami bangun satu indeks yang selalu bisa ditelusuri balik ke dokumen aslinya.',
     status: 'shipped',
   },
   {
     name: 'Arsipin',
     url: 'https://arsipin.lamaaulabs.com',
-    line: 'Arsip pribadi yang nyambung ke Google Drive. Semua file, satu indeks.',
+    why: 'File kami tersebar di laptop, Drive, dan hard disk lama. Arsipin jadi satu indeks di atas Drive yang sudah kami pakai sehari-hari.',
     status: 'shipped',
   },
   {
     name: 'Picly',
     url: 'https://picly.lamaaulabs.com',
-    line: 'Cari wajah di library foto, 100% offline. Nggak ada yang di-upload.',
+    why: 'Nyari foto berdasarkan wajah biasanya berarti upload ke layanan orang lain. Picly jalan lokal, jadi nggak ada file yang keluar dari mesin.',
     status: 'shipped',
   },
   {
     name: 'Laporan',
     url: 'https://github.com/rizkhal/laporan',
-    line: 'Laporan engineering bulanan dari riwayat Git, dianalisis LLM. Self-hosted, open source.',
+    why: 'Laporan bulanan biasanya ditulis manual dari ingatan. Laporan membaca riwayat Git dan menyusunnya jadi ringkasan yang bisa dicek.',
     status: 'shipped',
   },
 ];
@@ -87,4 +87,25 @@ export const services = [
   { k: '02', t: 'Design systems', d: 'Token, komponen, dokumentasi. Biar tim lo nggak bikin ulang tombol.' },
   { k: '03', t: 'AI integration', d: 'Retrieval, eval, dan guardrail. Bukan demo, tapi yang kepakai tiap hari.' },
   { k: '04', t: 'Infrastructure', d: 'Self-hosted, container, observability. Biaya bulanan yang masuk akal.' },
+];
+
+export const process = [
+  {
+    k: '01',
+    t: 'discovery',
+    h: 'Seminggu buat ngerti masalahnya',
+    d: 'Sebelum nulis kode, kami duduk bareng stakeholder dan user. Output-nya: dokumen scope, arsitektur awal, dan estimasi yang bisa kami pertanggungjawabkan.',
+  },
+  {
+    k: '02',
+    t: 'build',
+    h: 'Demo tiap Jumat, tanpa drama',
+    d: 'Lo bisa lihat progress di staging setiap minggu. Nggak ada "trust the process". Kalau ada yang melenceng, kita tahu di minggu pertama, bukan di minggu terakhir.',
+  },
+  {
+    k: '03',
+    t: 'handover',
+    h: 'Kode dan dokumentasi, bukan sandera',
+    d: 'Semua kode di repo lo. Dokumentasi arsitektur, runbook deploy, dan sesi handover ke tim internal lo. Kami nggak mau lo balik cuma karena nggak ada yang ngerti cara deploy.',
+  },
 ];
