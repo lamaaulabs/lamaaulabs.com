@@ -260,6 +260,20 @@ const statusLabel: Record<string, string> = {
         <div class="colophon">© {site.year}</div>
       </footer>
     </div>
+
+    <div class="footer-art">
+      <picture>
+        <source media="(max-width: 900px)" srcset="/footer-mobile.webp" width="1536" height="1024" />
+        <img
+          src="/footer-wide.webp"
+          width="2172"
+          height="724"
+          loading="lazy"
+          decoding="async"
+          alt="lamaaulabs — beyond build: product, engineering, ideas. Tautan: explore, build, ship."
+        />
+      </picture>
+    </div>
   </body>
 </html>
 
@@ -673,6 +687,19 @@ const statusLabel: Record<string, string> = {
   footer a { color: var(--muted); text-decoration: none; }
   footer a:hover { color: var(--ink); }
   .colophon { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; }
+
+  .footer-art { position: relative; line-height: 0; }
+  .footer-art img { display: block; width: 100%; height: auto; }
+
+  /* the artwork's top edge is slightly warmer than --bg; fade it in so the seam disappears */
+  .footer-art::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    height: clamp(64px, 8vw, 120px);
+    background: linear-gradient(var(--bg), rgba(244, 241, 234, 0));
+    pointer-events: none;
+  }
 
   /* ---- responsive ---- */
   @media (max-width: 900px) {

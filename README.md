@@ -28,7 +28,8 @@ npx astro preview    # cek hasil build di :4322
 ```
 src/data/site.ts       <- SATU sumber isi: positioning, produk, work, services
 src/pages/index.astro  satu-satunya halaman, CSS di <style is:global>
-public/                favicon.svg, og.svg + og.png, robots.txt
+public/                favicon.svg, og.svg + og.png, footer-*.webp, robots.txt
+design/                PNG sumber footer (nggak ikut di-build)
 ```
 
 `site` di `astro.config.mjs` dipakai buat canonical + `og:url`. Ganti kalau domain pindah.
@@ -49,6 +50,9 @@ PY
   --headless=new --disable-gpu --hide-scrollbars --window-size=1200,630 \
   --virtual-time-budget=4000 --screenshot=public/og.png file:///tmp/og.html
 ```
+
+Footer itu gambar, bukan markup: desktop pakai `footer-wide.webp`, mobile (≤900px)
+pakai `footer-mobile.webp`. Sumber PNG-nya di `design/`.
 
 Semua copy, produk, dan daftar work diambil dari `src/data/site.ts`.
 
